@@ -108,8 +108,20 @@ KeyLock специально спроектирован так, чтобы **н�
 
 ## Установка
 
-Готовых сборок нет — приложение собирается из исходников (Xcode не нужен, достаточно
-Command Line Tools):
+### Вариант 1 — готовая сборка
+
+Скачайте `KeyLock-1.0.0.zip` со [страницы релизов](https://github.com/AlexPogyl/KeyLock/releases),
+распакуйте и перетащите `KeyLock.app` в «Программы». Сборка подписана ad-hoc, поэтому
+карантин нужно снять вручную:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/KeyLock.app
+open -a /Applications/KeyLock.app
+```
+
+### Вариант 2 — из исходников
+
+Xcode не нужен, достаточно Command Line Tools:
 
 ```bash
 git clone https://github.com/AlexPogyl/KeyLock.git
