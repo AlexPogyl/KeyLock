@@ -177,7 +177,7 @@ tools/                   диагностические утилиты (HID-пр
 ./build/KeyLock.app/Contents/MacOS/KeyLock --selftest
 
 # открыть панель поверх тестовых обоев (для скриншотов)
-./build/KeyLock.app/Contents/MacOS/KeyLock --demo --state ready --backdrop
+./build/KeyLock.app/Contents/MacOS/KeyLock --demo --state verified --backdrop
 ```
 
 ## Известные ограничения
