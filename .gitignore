@@ -1,0 +1,13 @@
+# Build output
+build/
+*.o
+*.dSYM/
+
+# macOS
+.DS_Store
+._*
+
+# Xcode (not used, but just in case)
+*.xcuserdatad
+xcuserdata/
+DerivedData/
