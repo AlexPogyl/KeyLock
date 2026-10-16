@@ -185,17 +185,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func position(_ panel: NSPanel) {
-        guard let button = statusItem.button, let buttonWindow = button.window else { return }
-        let buttonFrame = buttonWindow.frame
-        let screen = buttonWindow.screen ?? NSScreen.main
+        let buttonWindow = statusItem.isVisible ? statusItem.button?.window : nil
+        let screen = buttonWindow?.screen ?? NSScreen.main
+        guard let visible = screen?.visibleFrame else { return }
 
-        var x = buttonFrame.midX - panel.frame.width / 2
-        let y = buttonFrame.minY - panel.frame.height - 8
-
-        if let visible = screen?.visibleFrame {
-            x = min(max(x, visible.minX + 8), visible.maxX - panel.frame.width - 8)
+        var x: CGFloat
+        var y: CGFloat
+        if let buttonWindow {
+            let frame = buttonWindow.frame
+            x = frame.midX - panel.frame.width / 2
+            y = frame.minY - panel.frame.height - 8
+        } else {
+            // The menu bar icon is switched off, so the panel was opened from
+            // Spotlight / Finder: park it top-centre instead of under a missing icon.
+            x = visible.midX - panel.frame.width / 2
+            y = visible.maxY - panel.frame.height - 12
         }
-        panel.setFrameOrigin(NSPoint(x: x, y: max(y, (screen?.visibleFrame.minY ?? 0) + 8)))
+
+        x = min(max(x, visible.minX + 8), visible.maxX - panel.frame.width - 8)
+        y = min(max(y, visible.minY + 8), visible.maxY - panel.frame.height - 8)
+        panel.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
     func togglePanel() {
